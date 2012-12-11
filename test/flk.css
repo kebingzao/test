@@ -1,0 +1,84 @@
+.widget{
+		-moz-border-radius:5px;
+		border-radius:5px;
+		-webkit-border-radius:5px;
+		border:1px solid #AAAAAA;
+		width:450px;
+		margin:0 auto;
+		margin-top:10px;
+}
+.widget .flktitle{
+		background-color:#D4D4D4;
+		color: #666666;
+		padding: 4px 0;
+		font: 13px/1.5em Verdana,Geneva,Arial,Helvetica,sans-serif;
+		cursor:move;
+}
+.widget .flktitle .flkTitle{
+	font-weight: bold;
+	line-height: 1.3em;
+	color: #444444;
+}
+.widget .flktitle .flkTitle  a{
+	text-decoration: none;
+}
+.widget .flktitle .flkTitle  a:hover{
+	color:red;
+	text-decoration: underline;
+}
+.widget .flktitle .flkButton a{
+	float:right;
+	text-decoration:none;
+	padding-right:6px;
+}
+.widget .flktitle .flkButton a:hover{
+	color:#64649E;
+	text-decoration: underline;
+}
+.widget .flktitle .flkClose {
+	float:right;
+	cursor:pointer;
+	padding-right:4px;
+}
+.widget .flktitle .flkTitle img{
+	margin-bottom:-3px;
+	margin-right:3px;
+	margin-left: 3px;
+}
+.flkedit{
+	font: 12px/1.4em Verdana,Geneva,Arial,Helvetica,sans-serif;
+	color:#444444;
+	background-color:#EEEEEE;
+	border-bottom:1px solid #AAAAAA;
+}
+.flkedit .label{
+	width:200px;
+}
+.flkitems{
+	background-color:#ffffff;
+	text-align:center;
+}
+.flkitems .Slides{
+	font: 13px/1.5em Verdana,Geneva,Arial,Helvetica,sans-serif;
+	clear:both;
+}
+.flkitems .nvpager{
+	font-size:12px;
+}
+.flkitems .nvpager .nextpage{
+	float:right;
+	padding-right:5px;
+}
+.flkitems .nvpager .prepage{
+	float:left;
+	padding-left:5px;
+}
+.flkitems .nvpager .prepage img{
+	margin-left:5px;
+	margin-bottom:-4px;
+	margin-right:5px;
+}
+.flkitems .nvpager .nextpage img{
+	margin-left:5px;
+	margin-bottom:-4px;
+}

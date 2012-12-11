@@ -1,0 +1,118 @@
+.widget{
+		-moz-border-radius:5px;
+		border-radius:5px;
+		-webkit-border-radius:5px;
+		border:1px solid #AAAAAA;
+		width:450px;
+		margin:0 auto;
+		margin-top:10px;
+}
+.widget .rsstitle{
+		background-color:#D4D4D4;
+		color: #666666;
+		padding: 4px 0;
+		font: 13px/1.5em Verdana,Geneva,Arial,Helvetica,sans-serif;
+		cursor:move;
+}
+.widget .rsstitle .rssTitle{
+	font-weight: bold;
+	line-height: 1.3em;
+	color: #444444;
+}
+.widget .rsstitle .rssTitle .rssNum{
+	color: #990030;
+}
+.widget .rsstitle .rssTitle  a{
+	text-decoration:none;
+}
+.widget .rsstitle .rssTitle  a:hover{
+	color:red;
+	text-decoration: underline;
+}
+.widget .rsstitle .rssButton a{
+	float:right;
+	text-decoration:none;
+	padding-right:6px;
+}
+.widget .rsstitle .rssButton a:hover{
+	color:#64649E;
+	text-decoration: underline;
+}
+.widget .rsstitle .rssClose {
+	float:right;
+	cursor:pointer;
+	padding-right:4px;
+}
+.widget .rsstitle .rssTitle img{
+	margin-bottom:-3px;
+	margin-right:3px;
+	margin-left: 3px;
+}
+.rssitemspages{
+	text-align:center
+}
+.rssitemspages{
+	font-size:1.5em
+}
+.rssitems{
+	text-align:left;
+	clear:left;
+	padding-top:-10px;
+}
+.rssitems ul{
+	font: 12px/1.4em Verdana,Geneva,Arial,Helvetica,sans-serif;
+	padding-left:5px;
+	padding-right:5px;
+	list-style-type:square;
+	color:#AAAAAA;
+}
+.rssitems ul li{
+	text-align:left;
+	line-height: 1.5em;
+	cursor:pointer;
+}
+.rssitems ul li .singleitem{
+}
+.read{
+	color: #999999;
+}
+.rssitems ul li .singleitem span{
+	font-size:0.8em;
+	color:#AAAAAA;
+}
+a{
+	color: #000000;
+	text-decoration: none;
+}
+.rssedit{
+	font: 12px/1.4em Verdana,Geneva,Arial,Helvetica,sans-serif;
+	color:#444444;
+	background-color:#EEEEEE;
+	border-bottom:1px solid #AAAAAA;
+}
+.rssedit .label{
+	width:200px;
+}
+.rssedit .editcontent{
+	
+}
+.rssitemspages{
+	font-size:12px;
+}
+.rssitemspages .nextpage{
+	float:right;
+	padding-right:20px;
+}
+.rssitemspages .prepage{
+	float:left;
+	padding-left:20px;
+}
+.rssitemspages .prepage img{
+	margin-left:5px;
+	margin-bottom:-4px;
+	margin-right:5px;
+}
+.rssitemspages .nextpage img{
+	margin-left:5px;
+	margin-bottom:-4px;
+}

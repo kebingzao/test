@@ -1,0 +1,235 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="utf-8">
+<script type="text/javascript" src="jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="rss.js"></script>
+<script type="text/javascript" src="scanrss.js"></script>
+<link href="flk.css" type="text/css" rel="stylesheet" />
+<link href="rss.css" type="text/css" rel="stylesheet" />
+<link href="scanrss.css" rel="stylesheet" type="text/css" /> 
+<script src="jquery.ui.core.js"></script>
+<script src="jquery.ui.widget.js"></script>
+<script src="jquery.ui.mouse.js"></script>
+<script src="jquery.ui.sortable.js"></script>
+<script language="javascript" src="feedWidget.js"></script>
+<script type="text/javascript" src="flk.js"></script>
+<script type="text/javascript" src="photoflk.js"></script>
+<script type="text/javascript" src="fotorama.js"></script>
+<link rel="stylesheet"type="text/css" href="fotorama.css">
+<link rel="stylesheet" type="text/css" media="all" href="bootstrapG.css">
+  <title>获取rss源</title>
+  <script>
+    $(document).ready(function() {
+		//widget的索引值
+		var count=0;
+		//获取用户id
+		var userid=getParam("userid");
+		rssMgr.userId=userid;
+		flkMgr.userId=userid;
+		feedWidget.userId=userid;
+		//得到该用户widget索引的最大值
+		$.ajax({
+			url: 'getMaxCount.php',
+			data:{userid:userid},
+			type: 'GET',
+			dataType: 'json',
+			error: function(json) {
+				alert("找不到");
+			},
+			beforeSend: function () {
+			},
+			success: function(json) {
+			//alert("userid为 " +json.userid+"rssID为"+json.rssid);
+			//alert(json.maxcount);
+			count=parseInt(json.maxcount)+1;
+			//alert(count);
+			}
+		});
+		//显示该用户之前订阅的rss和flickr
+		feedWidget.showWidget();
+		//rssMgr.showRssData(userid);
+		//flkMgr.showFlkData(userid);
+		$("#rssbtn").bind("click",function(){
+			var rssUrl=$("#rssaddr").val();
+			//如果rss地址不为空就显示rss框，并且把判定条件改为false
+			if(rssUrl!="")
+			{
+				var rssId="rss"+count;
+				rssMgr.showRssWithPhp(rssId,rssUrl,10,null,true,false,false);
+				//存到数据库中
+				//rssMgr.SaveConfig("kbz",rssId);
+			}
+			count=count+1;
+			feedWidget.sort();
+			
+		});
+		$("#flkbtn").bind("click",function(){
+			var flkUrl=$("#flkaddr").val();
+			if(flkUrl!="")
+			{
+				var flkId="flk"+count;
+				flkMgr.showFlkWithPhp(flkId,flkUrl,"Slides",true);
+			}
+			count=count+1;
+			feedWidget.sort();
+		});
+		//增加feed
+		$("#addfeed").click(function(event){
+			event.preventDefault();
+			$("#addhead").slideToggle();
+		});
+		//隐藏相册
+		$("#diplayPhoto").click(function(event){
+			event.preventDefault();
+			$("#FlkPhotoContainer").slideToggle();
+			if($(this).html()=="隐藏相册"){
+				$(this).html("显示相册");
+			}else{
+				$(this).html("隐藏相册");
+			}
+		});
+		//alert(userid);
+		function getParam(param) {
+				var r = new RegExp("\\?(?:.+&)?" + param + "=(.*?)(?:&.*)?$");
+				var m = window.location.toString().match(r);
+				return m ? m[1] : ""; //如果需要处理中文，可以用返回decodeURLComponent(m[1])
+		}
+		//绑定浏览器改变事件
+		$(window).resize(function() {
+			//var jj=$("#rssContain").find("[id^=widget]").length;
+			//alert(jj);
+			$("#rssContain").find("[id^=widget]").each(function(){
+				var uid=$(this).attr("id").substring(6);
+				if(uid.substring(0,3)=="rss"){
+					rssMgr.setBodySize(uid);
+				}else if(uid.substring(0,3)=="flk"){
+					flkMgr.setBodySize(uid);
+				}
+			});
+		});
+		//如果在显示相册的时候点击隐藏层，就把相册隐藏
+		$("#overlay").bind("click",function(){
+			if($(this).css("display")!="none"){
+				$(this).hide();
+				$("#photo").hide();
+			}
+		});
+		//如果显示相册的时候按esc键就退出
+		$("body").bind("keyup",function(event){
+			var code = event.keyCode;
+			if (27 == code && $("#photo").css("display")!="none") {
+				$("#overlay").hide();
+				$("#photo").hide();
+			}
+		});
+		//让中间的框居中
+		var len=$("body").width()*0.02+"px";
+		$("#rssmid").css("margin-left",len);
+		
+})
+  </script>
+<style>
+#addhead{
+	display:none;
+	margin-top:-18px;
+}
+body{
+	padding:0px;
+	margin:0px;
+	background-color:#EEEEEE;
+}
+.ui-state-highlight {
+            border: 2px dashed #666;
+            list-style-type: none;
+}
+#rssleft{
+float:left;
+width:32%;
+height:700px
+}
+
+#rssmid{
+float:left;
+margin-left:30px;
+width:32%;
+height:700px;
+}
+#rssright{
+float:right;
+width:32%;
+height:700px;
+}
+#addfeed{
+}
+#rssContain{
+	background-color:#EEEEEE;
+	margin:10px;
+}
+#diplayPhoto{
+}
+#photo{
+	display:none;
+}
+#overlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 90;
+	width: 100%;
+	height: 500px;
+	background-color: black;
+	display:none;
+}
+#photo .close{
+	cursor:pointer;
+	font-size:40px;
+}
+</style>
+
+  </head>
+  <body>
+  <div class="navbar">
+    <div class="navbar-inner">
+      <div class="container" style="width: auto;">
+        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </a>
+        <span class="brand">个性化主页</span>
+        <div class="nav-collapse">
+          <ul class="nav">
+            <li class="active"><a href="#" id="addfeed">增加一个feed<div id="ee"></div></a></li>
+            <li><a href="http://localhost:8080/bsBlog/htdocs/account" id="backspace">回到个人空间</a></li>
+			<li style="display:none"><a href="#" id="diplayPhoto">隐藏相册</a></li>
+          </ul>
+        </div><!-- /.nav-collapse -->
+      </div>
+    </div><!-- /navbar-inner -->
+  </div>
+  <div id="addhead" class="alert alert-info">
+	<div id="rsshead">
+      为了认证，请输入一个feed地址或网站URL<br/>
+	  <input type='text' size='55' class="span6" id='rssaddr' value="http://news.163.com/special/00011K6L/rss_newstop.xml" />
+	  <input type='button' class="btn btn-primary" value='增添feed' id='rssbtn'/>
+	</div>
+	<div id="flkhead">
+      请输入一个flickr feed 地址<br/>
+	  <input type='text' size='55' class="span6" id='flkaddr' value="http://api.flickr.com/services/feeds/photos_public.gne?id=26907150@N08&lang=zh-hk&format=rss_200" />
+	  <input type='button' class="btn btn-primary" value='增添flickr' id='flkbtn'/>
+	</div>
+  </div>
+  <div id="rssContain" style="margin:4px">
+		<div id="rssleft" class="rsscon">
+		</div>
+		<div id="rssmid" class="rsscon">	
+		</div>
+		<div id="rssright" class="rsscon">			
+		</div>
+  </div>	
+  <div id="overlay" style="opacity: 0.8;"></div>
+  <div id="photo"><a href="#" class="close" style="float:none"></a></div>
+  </body>
+</html>
